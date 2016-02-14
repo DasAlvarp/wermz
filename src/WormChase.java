@@ -117,7 +117,7 @@ public class WormChase extends GameFrame implements KeyListener {
 					// hack together a score
 				} else { // add an obstacle if possible
 					if (!fred.touchedAt(x, y)) // was the worm's body untouched?
-						obs.add(x, y);
+						obs.add(x, y, fred.getX(), fred.getY());
 				}
 			}
 		}

@@ -16,6 +16,7 @@ import java.awt.geom.Point2D;
 
 public class Worm
 {
+  double curX, curY;
   // size and number of dots in a worm
   private static final int DOTSIZE = 12;
   private static final int RADIUS = DOTSIZE/2;
@@ -91,6 +92,7 @@ public class Worm
   public boolean nearHead(int x, int y)
   // is (x,y) near the worm's head?
   {
+
       if (nPoints > 0) {
       if( (Math.abs( cells[headPosn].getX() + RADIUS - x) <= DOTSIZE) &&
            (Math.abs( cells[headPosn].getY() + RADIUS - y) <= DOTSIZE) )
@@ -98,6 +100,17 @@ public class Worm
     }
     return false;
   } // end of nearHead()
+
+  public double getX()
+  {
+    return curX;
+  }
+
+  public double getY()
+  {
+    return curY;
+  }
+
 
 
   public boolean touchedAt(int x, int y)
@@ -142,6 +155,8 @@ public class Worm
             newHead(compassRose(e), prevPosn);
             nPoints++;
         }
+      curX = cells[headPosn].getX();
+      curY = cells[headPosn].getY();
     }
 
     private int compassRose(int e)
@@ -194,6 +209,8 @@ public class Worm
       }
     }
     cells[headPosn] = newPt;     // new head position
+    curX = cells[headPosn].getX();
+    curY = cells[headPosn].getY();
     currCompass = newBearing;    // new compass direction
   }  // end of newHead()
 
@@ -256,7 +273,7 @@ public class Worm
         i = (i+1) % MAXPOINTS;
       }
       g.setColor(Color.red);
-      g.fillOval( (int) cells[headPosn].getX() % pWidth, (int) cells[headPosn].getY() % pHeight, DOTSIZE, DOTSIZE);
+      g.fillOval( (int) cells[headPosn % cells.length].getX() % pWidth, (int) cells[headPosn % cells.length].getY() % pHeight, DOTSIZE, DOTSIZE);
     }
   }  // end of draw()
 
